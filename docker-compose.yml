@@ -1,0 +1,16 @@
+version: "3.8"
+
+services:
+  jawk-legal:
+    image: jawk-legal:latest
+    container_name: jawk-legal
+    restart: unless-stopped
+    ports:
+      - "8095:80"      # Porta local mapeada – ajuste conforme necessário no Portainer
+    labels:
+      # Labels para Traefik (se você usar Traefik como reverse proxy no Portainer)
+      - "traefik.enable=true"
+      - "traefik.http.routers.jawk-legal.rule=Host(`legal.jawk.com.br`)"
+      - "traefik.http.routers.jawk-legal.entrypoints=websecure"
+      - "traefik.http.routers.jawk-legal.tls.certresolver=letsencrypt"
+      - "traefik.http.services.jawk-legal.loadbalancer.server.port=80"
