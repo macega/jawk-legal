@@ -3,124 +3,777 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAWK – Documentos Legais</title>
-    <meta name="description" content="Documentos legais do aplicativo JAWK: Política de Privacidade e Termos de Serviço.">
+    <title>JAWK BRANDS – Cartão de Visita Digital</title>
+    <meta name="description" content="Cartão de Visita Digital da JAWK BRANDS. Entre em contato, acesse nosso site e consulte nossos Termos e Políticas.">
+    
+    <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        /* CSS Reset & Variables */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         :root {
-            --bg: #0a0f1e;
-            --surface: rgba(255,255,255,0.04);
-            --border: rgba(255,255,255,0.08);
+            --bg: #070b15;
+            --surface: rgba(255, 255, 255, 0.03);
+            --surface-hover: rgba(255, 255, 255, 0.07);
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.16);
             --primary: #6366f1;
-            --primary-glow: rgba(99, 102, 241, 0.3);
-            --text: #f1f5f9;
-            --muted: #94a3b8;
+            --primary-glow: rgba(99, 102, 241, 0.25);
+            --secondary: #a78bfa;
+            --secondary-glow: rgba(167, 139, 250, 0.2);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            
+            /* Status Indicators */
+            --status-online: #22c55e;
+            --whatsapp-color: #22c55e;
+            --whatsapp-glow: rgba(34, 197, 94, 0.25);
+            --email-color: #06b6d4;
+            --email-glow: rgba(6, 182, 212, 0.25);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
+            background-color: var(--bg);
+            color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
+            padding: 1.5rem;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Ambient Background Gradients */
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            pointer-events: none;
             background-image:
-                radial-gradient(ellipse at 20% 20%, rgba(99,102,241,0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(139,92,246,0.1) 0%, transparent 50%);
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 60%);
+            animation: bgShift 20s ease-in-out infinite alternate;
         }
 
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, #6366f1, #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        @keyframes bgShift {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
         }
 
-        .subtitle {
-            color: var(--muted);
-            font-size: 0.95rem;
-            margin-bottom: 3rem;
+        /* Glassmorphic VCard Container */
+        .card-container {
+            width: 100%;
+            max-width: 440px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 2.25rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                        box-shadow 0.4s ease, 
+                        border-color 0.4s ease;
+            position: relative;
         }
 
-        .cards {
+        .card-container:hover {
+            transform: translateY(-4px);
+            border-color: rgba(99, 102, 241, 0.3);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4),
+                        0 0 40px var(--primary-glow),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Profile Header Details */
+        .profile-header {
             display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo-wrapper {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px var(--primary-glow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .card-container:hover .logo-container {
+            transform: rotate(5deg) scale(1.05);
+        }
+
+        .logo-container svg {
+            width: 42px;
+            height: 42px;
+            fill: none;
+            stroke: var(--text-main);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: #0f172a;
+            padding: 4px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
         }
 
-        .card {
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background-color: var(--status-online);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .status-dot::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: var(--status-online);
+            border-radius: 50%;
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            100% { transform: scale(2.5); opacity: 0; }
+        }
+
+        .profile-name {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #ffffff 60%, var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-company {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 0.75rem;
+        }
+
+        .profile-bio {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+            max-width: 320px;
+        }
+
+        /* Action Buttons / Grid */
+        .actions-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-action {
+            display: flex;
+            align-items: center;
+            padding: 0.9rem 1.25rem;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 2rem 2.5rem;
-            width: 260px;
-            text-align: center;
+            border-radius: 14px;
+            color: var(--text-main);
             text-decoration: none;
-            color: var(--text);
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            font-weight: 500;
+            text-align: left;
         }
 
-        .card:hover {
+        .btn-action:hover {
+            background: var(--surface-hover);
+            border-color: var(--border-hover);
+            transform: translateX(4px);
+        }
+
+        /* Individual button accents on hover */
+        .btn-action.whatsapp:hover {
+            border-color: var(--whatsapp-color);
+            box-shadow: 0 0 20px var(--whatsapp-glow);
+        }
+
+        .btn-action.email:hover {
+            border-color: var(--email-color);
+            box-shadow: 0 0 20px var(--email-glow);
+        }
+
+        .btn-action.website:hover {
             border-color: var(--primary);
-            box-shadow: 0 0 32px var(--primary-glow);
-            transform: translateY(-4px);
+            box-shadow: 0 0 20px var(--primary-glow);
         }
 
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        .btn-action.contact:hover {
+            border-color: var(--secondary);
+            box-shadow: 0 0 20px var(--secondary-glow);
         }
 
-        .card h2 {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .btn-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover .btn-icon {
+            background: rgba(255, 255, 255, 0.08);
+            transform: scale(1.05);
+        }
+
+        .btn-icon svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        .btn-content {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .btn-title {
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .btn-subtitle {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .btn-arrow {
+            color: var(--text-muted);
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .btn-action:hover .btn-arrow {
+            transform: translateX(3px);
+            color: var(--text-main);
+        }
+
+        /* Secondary Share Action Bar */
+        .share-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn-secondary {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--border-hover);
+            color: var(--text-main);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .btn-secondary svg {
+            width: 16px;
+            height: 16px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Tooltip notification for clipboard */
+        .tooltip {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #1e293b;
+            color: #ffffff;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 6px;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid var(--border);
+            white-space: nowrap;
+            z-index: 10;
+        }
+
+        .tooltip.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Expandable QR Code Section */
+        .qr-section {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .qr-section.open {
+            max-height: 260px;
+            border-top: 1px dashed var(--border);
+            padding-top: 1.5rem;
+            margin-top: 0.5rem;
             margin-bottom: 0.5rem;
         }
 
-        .card p {
+        .qr-title {
             font-size: 0.85rem;
-            color: var(--muted);
-            line-height: 1.5;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
         }
 
-        footer {
-            margin-top: 4rem;
-            color: var(--muted);
+        .qr-desc {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .qr-image-container {
+            background: #ffffff;
+            padding: 10px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+        }
+
+        .qr-image-container:hover {
+            transform: scale(1.03);
+        }
+
+        .qr-image-container img {
+            display: block;
+            width: 140px;
+            height: 140px;
+        }
+
+        /* Legal / Footer Section Inside Card */
+        .legal-divider {
+            display: flex;
+            align-items: center;
+            margin: 1.75rem 0 1rem;
+            position: relative;
+        }
+
+        .legal-divider::before {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border), transparent);
+        }
+
+        .legal-divider span {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 0 10px;
+        }
+
+        .legal-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
+        }
+
+        .btn-legal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-muted);
             font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-legal:hover {
+            background: rgba(99, 102, 241, 0.05);
+            border-color: rgba(99, 102, 241, 0.25);
+            color: var(--primary);
+        }
+
+        .btn-legal svg {
+            width: 14px;
+            height: 14px;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 2;
+        }
+
+        /* Standard Footer (Copyright) */
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            z-index: 1;
+        }
+
+        footer p {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Responsive adaptations */
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            .card-container {
+                padding: 1.75rem 1.25rem;
+            }
+            .profile-name {
+                font-size: 1.6rem;
+            }
+            .btn-action {
+                padding: 0.8rem 1rem;
+            }
+            .btn-icon {
+                width: 34px;
+                height: 34px;
+                margin-right: 0.75rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="logo">JAWK</div>
-    <p class="subtitle">Documentos Legais do Aplicativo</p>
 
-    <div class="cards">
-        <a href="/privacidade.html" class="card">
-            <div class="card-icon">🔒</div>
-            <h2>Aviso de Privacidade</h2>
-            <p>Como coletamos, usamos e protegemos seus dados pessoais (LGPD).</p>
-        </a>
-        <a href="/termos.html" class="card">
-            <div class="card-icon">📄</div>
-            <h2>Termos e Condições de Uso</h2>
-            <p>Regras, licenciamento e condições para uso da plataforma JAWK.</p>
-        </a>
-    </div>
+    <!-- Ambient moving gradients -->
+    <div class="ambient-bg"></div>
 
+    <!-- Main Card -->
+    <main class="card-container">
+        
+        <!-- Header -->
+        <div class="profile-header">
+            <div class="logo-wrapper">
+                <div class="logo-container">
+                    <!-- Elegant Custom JAWK Newsroom SVG Logo -->
+                    <svg viewBox="0 0 24 24">
+                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                        <path d="M16 8h2M16 12h2M16 16h2M6 8h6M6 12h6M6 16h6" />
+                    </svg>
+                </div>
+                <div class="status-badge">
+                    <div class="status-dot"></div>
+                </div>
+            </div>
+            <h1 class="profile-name">JAWK</h1>
+            <div class="profile-company">Jawk Brands</div>
+            <p class="profile-bio">Plataforma de gestão de pautas e produção jornalística.</p>
+        </div>
+
+        <!-- Links List -->
+        <div class="actions-list">
+            
+            <!-- WhatsApp -->
+            <a href="https://wa.me/5569981181859" class="btn-action whatsapp" target="_blank" rel="noopener">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24" style="color: var(--whatsapp-color);">
+                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.727-1.458L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.488 1.98 14.029.953 11.47.953c-5.437 0-9.862 4.371-9.866 9.8.001 1.64.453 3.24 1.309 4.68l-.997 3.642 3.731-.977zm11.58-6.845c-.29-.145-1.713-.846-1.977-.942-.265-.096-.457-.145-.648.145-.191.29-.74.942-.907 1.133-.166.19-.333.215-.624.07-1.32-.656-2.18-.893-3.033-2.361-.225-.386-.067-.595.078-.739.13-.13.29-.338.437-.507.145-.17.192-.29.29-.483.096-.193.048-.362-.025-.508-.073-.145-.648-1.56-.888-2.137-.233-.56-.472-.482-.648-.491-.166-.008-.358-.01-.55-.01s-.507.072-.773.362c-.266.29-1.013.99-1.013 2.415 0 1.424 1.037 2.803 1.182 2.996.145.193 2.04 3.114 4.943 4.368.69.298 1.23.476 1.65.61.693.22 1.324.19 1.823.115.556-.084 1.713-.699 1.953-1.375.24-.677.24-1.256.17-1.376-.07-.124-.265-.197-.555-.342z"/>
+                    </svg>
+                </div>
+                <div class="btn-content">
+                    <span class="btn-title">Fale Conosco</span>
+                    <span class="btn-subtitle">(69) 9 8118-1859 (WhatsApp)</span>
+                </div>
+                <div class="btn-arrow">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+
+            <!-- E-mail -->
+            <a href="mailto:contato@jawk.com.br" class="btn-action email">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24" style="color: var(--email-color);">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
+                </div>
+                <div class="btn-content">
+                    <span class="btn-title">Enviar E-mail</span>
+                    <span class="btn-subtitle">contato@jawk.com.br</span>
+                </div>
+                <div class="btn-arrow">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+
+            <!-- Website -->
+            <a href="https://legal.jawk.com.br" class="btn-action website">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24" style="color: var(--primary);">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/>
+                    </svg>
+                </div>
+                <div class="btn-content">
+                    <span class="btn-title">Website Oficial</span>
+                    <span class="btn-subtitle">Acessar portal institucional</span>
+                </div>
+                <div class="btn-arrow">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </a>
+
+            <!-- Salvar Contato (VCF) -->
+            <button onclick="downloadVCard()" class="btn-action contact">
+                <div class="btn-icon">
+                    <svg viewBox="0 0 24 24" style="color: var(--secondary);">
+                        <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zm-7-9h5v5h-5zm0 6h5v3h-5z"/>
+                    </svg>
+                </div>
+                <div class="btn-content">
+                    <span class="btn-title">Salvar Contato</span>
+                    <span class="btn-subtitle">Adicionar na agenda do celular</span>
+                </div>
+                <div class="btn-arrow">
+                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </div>
+            </button>
+        </div>
+
+        <!-- Share Row -->
+        <div class="share-row">
+            
+            <!-- Copy Link -->
+            <button id="copy-btn" class="btn-secondary" onclick="copyCardLink()">
+                <svg viewBox="0 0 24 24">
+                    <path d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m-6 4h10m-5-5v10" />
+                </svg>
+                <span>Copiar Link</span>
+                <span id="copy-tooltip" class="tooltip">Link Copiado!</span>
+            </button>
+
+            <!-- Show QR Code -->
+            <button id="qr-toggle-btn" class="btn-secondary" onclick="toggleQRCode()">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="3" width="7" height="7" rx="1" />
+                    <rect x="14" y="3" width="7" height="7" rx="1" />
+                    <rect x="3" y="14" width="7" height="7" rx="1" />
+                    <path d="M14 14h3v3h-3zm3 3h4v4h-4zm-3 4h3v-3h-3zm6-7h3v3h-3z" />
+                </svg>
+                <span id="qr-btn-text">Mostrar QR</span>
+            </button>
+        </div>
+
+        <!-- Hidden QR Code Block -->
+        <div id="qr-wrapper" class="qr-section">
+            <h3 class="qr-title">Escanear no Celular</h3>
+            <p class="qr-desc">Abra a câmera do celular para abrir o cartão instantaneamente</p>
+            <div class="qr-image-container">
+                <!-- Serves a high quality QR Code dynamically using simple public parameterless API qrserver -->
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://legal.jawk.com.br&color=070b15" alt="QR Code JAWK BRANDS">
+            </div>
+        </div>
+
+        <!-- Legal Links Divider and Buttons -->
+        <div class="legal-divider">
+            <span>Documentos Legais</span>
+        </div>
+
+        <div class="legal-links">
+            <a href="/privacidade.html" class="btn-legal">
+                <svg viewBox="0 0 24 24">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                Privacidade
+            </a>
+            <a href="/termos.html" class="btn-legal">
+                <svg viewBox="0 0 24 24">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                    <polyline points="14 2 14 8 20 8" />
+                    <line x1="16" y1="13" x2="8" y2="13" />
+                    <line x1="16" y1="17" x2="8" y2="17" />
+                    <polyline points="10 9 9 9 8 9" />
+                </svg>
+                Termos de Uso
+            </a>
+        </div>
+
+    </main>
+
+    <!-- Page Footer -->
     <footer>
-        &copy; 2024 JAWK. Todos os direitos reservados.
+        <p>&copy; 2026 JAWK DIGITAL GROUP LTDA.</p>
+        <p>CNPJ 64.869.063/0001-61 · Todos os direitos reservados.</p>
     </footer>
+
+    <!-- Scripting Lógica -->
+    <script>
+        // 1. Generate and download VCard (.VCF) dynamically
+        function downloadVCard() {
+            const vcardData = [
+                'BEGIN:VCARD',
+                'VERSION:3.0',
+                'FN:JAWK BRANDS',
+                'ORG:JAWK DIGITAL GROUP LTDA',
+                'TITLE:Plataforma de Gestao de Pautas e Producao Jornalistica',
+                'TEL;TYPE=WORK,VOICE,CELL;waid=5569981181859:+5569981181859',
+                'EMAIL;TYPE=PREF,INTERNET:contato@jawk.com.br',
+                'URL:https://legal.jawk.com.br',
+                'NOTE:CNPJ: 64.869.063/0001-61\\nIE: 157.844.680.110\\nFale Conosco pelo WhatsApp ou E-mail.',
+                'END:VCARD'
+            ].join('\r\n');
+
+            const blob = new Blob([vcardData], { type: 'text/vcard;charset=utf-8;' });
+            const link = document.createElement('a');
+            
+            // Clean up old objectURLs if any
+            if (window.vcardUrl) {
+                URL.revokeObjectURL(window.vcardUrl);
+            }
+            
+            window.vcardUrl = URL.createObjectURL(blob);
+            link.href = window.vcardUrl;
+            link.download = 'JAWK_BRANDS.vcf';
+            
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 2. Clipboard Link Copying
+        function copyCardLink() {
+            const url = window.location.href;
+            const tooltip = document.getElementById('copy-tooltip');
+
+            // Fallback for older browsers or specific sandbox constraints
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(url)
+                    .then(() => showCopySuccess(tooltip))
+                    .catch(() => fallbackCopy(url, tooltip));
+            } else {
+                fallbackCopy(url, tooltip);
+            }
+        }
+
+        function fallbackCopy(text, tooltip) {
+            const textArea = document.createElement("textarea");
+            textArea.value = text;
+            textArea.style.position = "fixed";
+            textArea.style.opacity = "0";
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                showCopySuccess(tooltip);
+            } catch (err) {
+                console.error('Erro ao copiar link', err);
+            }
+            document.body.removeChild(textArea);
+        }
+
+        function showCopySuccess(tooltip) {
+            tooltip.classList.add('show');
+            setTimeout(() => {
+                tooltip.classList.remove('show');
+            }, 2000);
+        }
+
+        // 3. Expandable QR Code toggle
+        function toggleQRCode() {
+            const qrWrapper = document.getElementById('qr-wrapper');
+            const qrBtnText = document.getElementById('qr-btn-text');
+            
+            if (qrWrapper.classList.contains('open')) {
+                qrWrapper.classList.remove('open');
+                qrBtnText.textContent = 'Mostrar QR';
+            } else {
+                qrWrapper.classList.add('open');
+                qrBtnText.textContent = 'Ocultar QR';
+                
+                // Smooth scroll to keep QR code in view if opened on small screens
+                setTimeout(() => {
+                    qrWrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 200);
+            }
+        }
+    </script>
 </body>
 </html>
