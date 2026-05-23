@@ -7,10 +7,8 @@ services:
     container_name: jawk-legal
     restart: unless-stopped
     ports:
-      - "8095:80"
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.jawk-legal.rule=Host(`legal.jawk.com.br`)"
-      - "traefik.http.routers.jawk-legal.entrypoints=websecure"
-      - "traefik.http.routers.jawk-legal.tls.certresolver=letsencrypt"
-      - "traefik.http.services.jawk-legal.loadbalancer.server.port=80"
+      - "8095:80"    # O Nginx Proxy Manager vai apontar para esta porta
+
+networks:
+  default:
+    external: false
