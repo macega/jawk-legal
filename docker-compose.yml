@@ -2,13 +2,13 @@ version: "3.8"
 
 services:
   jawk-legal:
-    image: jawk-legal:latest
+    # Imagem publicada automaticamente pelo GitHub Actions no Docker Hub
+    image: macega/jawk-legal:latest
     container_name: jawk-legal
     restart: unless-stopped
     ports:
-      - "8095:80"      # Porta local mapeada – ajuste conforme necessário no Portainer
+      - "8095:80"
     labels:
-      # Labels para Traefik (se você usar Traefik como reverse proxy no Portainer)
       - "traefik.enable=true"
       - "traefik.http.routers.jawk-legal.rule=Host(`legal.jawk.com.br`)"
       - "traefik.http.routers.jawk-legal.entrypoints=websecure"
